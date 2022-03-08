@@ -7,11 +7,15 @@ require('dotenv').config();
 const main = async () => {
   const issues: GetIssuesResponseType['data']  = await fetchIssues();
   const tasks: Task[] = await fetchTasks();
-  issues.map((issue: Issue) => {
+  const result = await Promise.all(issues.map(async(issue: Issue) => {
     if (!checkDuplication(tasks, issue)) {
-      addTask(issue)
+      return await addTask(issue)
+    } else {
+      return undefined
     }
-  })
+  }))
+  const addedTasks = result.filter((task) => !(task === undefined))
+  console.log(`Add ${addedTasks.length} tasks✨`);
 }
 
 const checkDuplication = (tasks: Task[], issue: Issue): boolean => {
