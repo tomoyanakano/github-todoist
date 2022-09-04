@@ -3,7 +3,7 @@
 This repository make it possible to copy github issues you assigned to Todoist.
 
 
-## Prerequisit
+## Prerequisite
 
 
 **Add your Github and Todoist Access Token to `.env` file**
